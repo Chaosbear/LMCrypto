@@ -1,0 +1,11 @@
+//
+//  Development.xcconfig
+//  LMCrypto
+//
+//  Created by Sukrit Chatmeeboon on 24/9/2567 BE.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+#include "Base.xcconfig"

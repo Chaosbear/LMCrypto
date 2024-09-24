@@ -1,0 +1,54 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    ":" : {
+
+    },
+    "(%@)" : {
+
+    },
+    "%@" : {
+
+    },
+    "+" : {
+
+    },
+    "ArticleView %lld" : {
+
+    },
+    "AuthorProfileView %lld" : {
+
+    },
+    "Count %lld" : {
+
+    },
+    "CourseView %lld" : {
+
+    },
+    "Hex %lld" : {
+
+    },
+    "Home" : {
+
+    },
+    "Library %lld" : {
+
+    },
+    "Notification %lld" : {
+
+    },
+    "ProfileView %lld" : {
+
+    },
+    "Search %lld" : {
+
+    },
+    "SettingView %lld" : {
+
+    },
+    "ThemeSettingView %lld" : {
+
+    }
+  },
+  "version" : "1.0"
+}

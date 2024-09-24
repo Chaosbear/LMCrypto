@@ -4,10 +4,38 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>LMCrypto.xcscheme_^#shared#^_</key>
+		<key>LMCrypto-Dev.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>LMCrypto-UAT.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>LMCrypto.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>963DD49B2CA30DAE008EE0B5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>963DD4AB2CA30DB0008EE0B5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>963DD4B52CA30DB0008EE0B5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
