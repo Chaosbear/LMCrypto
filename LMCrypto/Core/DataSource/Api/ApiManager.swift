@@ -59,7 +59,7 @@ class ApiManager {
         retryable: Bool = false,
         timeout: Double = 60
     ) -> DataRequest {
-        guard var urlComponents = URLComponents(string: endpoint + apiVersion.path + path) else { fatalError() }
+        guard let urlComponents = URLComponents(string: endpoint + apiVersion.path + path) else { fatalError() }
 
         return session.request(
             urlComponents,

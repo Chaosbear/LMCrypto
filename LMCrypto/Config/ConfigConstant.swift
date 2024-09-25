@@ -19,6 +19,8 @@ enum Config {
 
     // MARK: - Get Plist Value
     static func getInfoValue(key: String) -> String? {
+        print("[lmwn] infoDict: \(infoDict)")
+        print("[lmwn] key: \(key) -> \(String(describing: infoDict[key] as? String))")
         return infoDict[key] as? String
     }
 }

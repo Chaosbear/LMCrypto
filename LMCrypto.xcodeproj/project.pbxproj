@@ -63,6 +63,9 @@
 		96E9C0082CA3595500649089 /* ApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C0072CA3594F00649089 /* ApiDataSource.swift */; };
 		96E9C00A2CA359A200649089 /* ApiCoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C0092CA3599E00649089 /* ApiCoin.swift */; };
 		96E9C00C2CA386B700649089 /* InviteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C00B2CA386B100649089 /* InviteCardView.swift */; };
+		96E9C00F2CA42A4100649089 /* PaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C00E2CA42A3600649089 /* PaginationModel.swift */; };
+		96E9C0112CA42AD900649089 /* CoinListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C0102CA42ABF00649089 /* CoinListItemModel.swift */; };
+		96E9C0192CA4479C00649089 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96E9C0182CA4479C00649089 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,7 +136,6 @@
 		96E9BF952CA3463F00649089 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		96E9BF972CA3463F00649089 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96E9BF982CA3463F00649089 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
-		96E9BF9A2CA3463F00649089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96E9BFFD2CA3464500649089 /* LMCryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMCryptoTests.swift; sourceTree = "<group>"; };
 		96E9C0002CA3464800649089 /* LMCryptoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMCryptoUITests.swift; sourceTree = "<group>"; };
 		96E9C0012CA3464800649089 /* LMCryptoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMCryptoUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -141,6 +143,9 @@
 		96E9C0072CA3594F00649089 /* ApiDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiDataSource.swift; sourceTree = "<group>"; };
 		96E9C0092CA3599E00649089 /* ApiCoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCoin.swift; sourceTree = "<group>"; };
 		96E9C00B2CA386B100649089 /* InviteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCardView.swift; sourceTree = "<group>"; };
+		96E9C00E2CA42A3600649089 /* PaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationModel.swift; sourceTree = "<group>"; };
+		96E9C0102CA42ABF00649089 /* CoinListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListItemModel.swift; sourceTree = "<group>"; };
+		96E9C0182CA4479C00649089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -300,6 +305,7 @@
 		96E9BF302CA3463F00649089 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				96E9C00E2CA42A3600649089 /* PaginationModel.swift */,
 				96E9BF2A2CA3463F00649089 /* ApiBaseModel.swift */,
 				96E9BF2B2CA3463F00649089 /* CoinModel.swift */,
 			);
@@ -419,6 +425,7 @@
 		96E9BF572CA3463F00649089 /* InAppView */ = {
 			isa = PBXGroup;
 			children = (
+				96E9C00D2CA394C400649089 /* ErrorView */,
 				96E9BF492CA3463F00649089 /* Card */,
 				96E9BF4D2CA3463F00649089 /* Placeholder */,
 			);
@@ -462,6 +469,7 @@
 		96E9BF7D2CA3463F00649089 /* RootView */ = {
 			isa = PBXGroup;
 			children = (
+				96E9C0102CA42ABF00649089 /* CoinListItemModel.swift */,
 				96E9BF792CA3463F00649089 /* RootView.swift */,
 				96E9BF7B2CA3463F00649089 /* RootInteractor.swift */,
 				96E9BF7C2CA3463F00649089 /* RootPresenter.swift */,
@@ -524,7 +532,7 @@
 				96E9BF942CA3463F00649089 /* Localization */,
 				96E9BF962CA3463F00649089 /* Preview Content */,
 				96E9BF992CA3463F00649089 /* Resource */,
-				96E9BF9A2CA3463F00649089 /* Info.plist */,
+				96E9C0182CA4479C00649089 /* Info.plist */,
 			);
 			path = LMCrypto;
 			sourceTree = "<group>";
@@ -544,6 +552,13 @@
 				96E9C0012CA3464800649089 /* LMCryptoUITestsLaunchTests.swift */,
 			);
 			path = LMCryptoUITests;
+			sourceTree = "<group>";
+		};
+		96E9C00D2CA394C400649089 /* ErrorView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ErrorView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -671,6 +686,7 @@
 				96E9BFF82CA3463F00649089 /* Localizable.xcstrings in Resources */,
 				96E9BFF92CA3463F00649089 /* Preview Assets.xcassets in Resources */,
 				96E9BFFA2CA3463F00649089 /* Assets.xcassets in Resources */,
+				96E9C0192CA4479C00649089 /* Info.plist in Resources */,
 				96E9BFFB2CA3463F00649089 /* image.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -702,6 +718,7 @@
 				96E9BF9F2CA3463F00649089 /* ColorDesignSystem.swift in Sources */,
 				96E9BFA02CA3463F00649089 /* ColorPalette.swift in Sources */,
 				96E9C0082CA3595500649089 /* ApiDataSource.swift in Sources */,
+				96E9C0112CA42AD900649089 /* CoinListItemModel.swift in Sources */,
 				96E9BFA12CA3463F00649089 /* FontDesignSystem.swift in Sources */,
 				96E9BFA22CA3463F00649089 /* ThemeState.swift in Sources */,
 				96E9BFA32CA3463F00649089 /* BorderCornerExtension.swift in Sources */,
@@ -722,6 +739,7 @@
 				96E9BFBA2CA3463F00649089 /* NetworkMonitor.swift in Sources */,
 				96E9BFBB2CA3463F00649089 /* Utils.swift in Sources */,
 				96E9BFBC2CA3463F00649089 /* LineView.swift in Sources */,
+				96E9C00F2CA42A4100649089 /* PaginationModel.swift in Sources */,
 				96E9BFBD2CA3463F00649089 /* SeeMoreText.swift in Sources */,
 				96E9C00C2CA386B700649089 /* InviteCardView.swift in Sources */,
 				96E9BFBE2CA3463F00649089 /* FlexView.swift in Sources */,

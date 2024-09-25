@@ -19,4 +19,7 @@ struct Palette {
     static var ghostWhite: String { "F9F9F9" }
     static var brilliantAzure: String { "38A0FF" }
     static var hawkesBlue: String { "C5E6FF" }
+    static var silverSand: String { "C4C4C4" }
+    static var brightGray: String { "EEEEEE" }
+    static var fireEngineRed: String { "C52222" }
 }

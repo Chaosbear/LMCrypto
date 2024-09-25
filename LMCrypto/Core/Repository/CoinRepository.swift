@@ -8,7 +8,12 @@
 import Foundation
 
 protocol CoinRepositoryProtocol {
-    func getCoinList(offset: Int, limit: Int) async -> (CoinListModel?, ApiBaseModel<CoinListModel>?, ApiResponseStatusModel)
+    func getCoinList(
+        offset: Int,
+        limit: Int,
+        orderBy: ApiDataSource.CoinOrderByType
+    ) async -> (CoinListModel?, ApiBaseModel<CoinListModel>?, ApiResponseStatusModel)
+
     func getCoinDetail(id: String) async -> (CoinDetailModel?, ApiBaseModel<CoinDetailModel>?, ApiResponseStatusModel)
 }
 
@@ -19,12 +24,20 @@ struct CoinRepository: CoinRepositoryProtocol {
         self.dataSource = dataSource
     }
 
-    func getCoinList(offset: Int, limit: Int) async -> (CoinListModel?, ApiBaseModel<CoinListModel>?, ApiResponseStatusModel) {
-        let response = await dataSource.getCoinList(offset: offset, limit: limit)
-            .serializingDecodableHandler(
-                of: ApiBaseModel<CoinListModel>.self,
-                err: ApiBaseModel<CoinListModel>.self
-            )
+    func getCoinList(
+        offset: Int,
+        limit: Int,
+        orderBy: ApiDataSource.CoinOrderByType
+    ) async -> (CoinListModel?, ApiBaseModel<CoinListModel>?, ApiResponseStatusModel) {
+        let response = await dataSource.getCoinList(
+            offset: offset,
+            limit: limit,
+            orderBy: orderBy
+        )
+        .serializingDecodableHandler(
+            of: ApiBaseModel<CoinListModel>.self,
+            err: ApiBaseModel<CoinListModel>.self
+        )
 
         return (response.0?.data, response.1, response.2)
     }

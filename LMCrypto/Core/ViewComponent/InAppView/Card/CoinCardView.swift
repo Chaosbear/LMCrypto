@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct CoinCardData: Identifiable {
-    let id: String
+struct CoinCardData {
     let icon: URL?
     let symbol: String
     let symbolColor: Color
@@ -18,7 +17,6 @@ struct CoinCardData: Identifiable {
     let isUp: Bool
 
     init(model: CoinModel) {
-        self.id = model.uuid
         self.icon = model.iconUrl.imageUrl()
         self.symbol = model.symbol
         self.symbolColor = Color(model.color)
@@ -31,7 +29,6 @@ struct CoinCardData: Identifiable {
     }
 
     init(
-        id: String,
         icon: URL?,
         symbol: String,
         symbolColor: Color,
@@ -40,7 +37,6 @@ struct CoinCardData: Identifiable {
         change: String,
         isUp: Bool
     ) {
-        self.id = id
         self.icon = icon
         self.symbol = symbol
         self.symbolColor = symbolColor
@@ -250,7 +246,6 @@ struct TopCoinCardView: View {
     ScrollView(.vertical) {
         VStack(alignment: .leading, spacing: 12) {
             let mock1 = CoinCardData(
-                id: "1",
                 icon: nil,
                 symbol: "BTC",
                 symbolColor: Color("#f7931A"),
@@ -260,7 +255,6 @@ struct TopCoinCardView: View {
                 isUp: true
             )
             let mock2 = CoinCardData(
-                id: "2",
                 icon: nil,
                 symbol: "ETH",
                 symbolColor: Color("#f7931A"),
@@ -270,7 +264,6 @@ struct TopCoinCardView: View {
                 isUp: false
             )
             let mock3 = CoinCardData(
-                id: "3",
                 icon: nil,
                 symbol: "BNB",
                 symbolColor: Color("#f7931A"),
