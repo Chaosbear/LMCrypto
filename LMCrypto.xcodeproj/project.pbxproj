@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		9636F7F32CA32B41005B3BA4 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9636F7F22CA32B41005B3BA4 /* Alamofire */; };
 		9636F7F62CA32D3C005B3BA4 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = 9636F7F52CA32D3C005B3BA4 /* netfox */; };
+		96655DF82CA453EB00FBE78C /* PaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96655DF72CA453EB00FBE78C /* PaginationModel.swift */; };
+		96655DFA2CA4541000FBE78C /* CoinListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96655DF92CA4541000FBE78C /* CoinListItemModel.swift */; };
 		96E9BF9C2CA3463F00649089 /* LMCryptoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9BF052CA3463F00649089 /* LMCryptoApp.swift */; };
 		96E9BF9D2CA3463F00649089 /* ConfigConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9BF082CA3463F00649089 /* ConfigConstant.swift */; };
 		96E9BF9E2CA3463F00649089 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9BF0D2CA3463F00649089 /* ApiManager.swift */; };
@@ -63,9 +65,6 @@
 		96E9C0082CA3595500649089 /* ApiDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C0072CA3594F00649089 /* ApiDataSource.swift */; };
 		96E9C00A2CA359A200649089 /* ApiCoin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C0092CA3599E00649089 /* ApiCoin.swift */; };
 		96E9C00C2CA386B700649089 /* InviteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C00B2CA386B100649089 /* InviteCardView.swift */; };
-		96E9C00F2CA42A4100649089 /* PaginationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C00E2CA42A3600649089 /* PaginationModel.swift */; };
-		96E9C0112CA42AD900649089 /* CoinListItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9C0102CA42ABF00649089 /* CoinListItemModel.swift */; };
-		96E9C0192CA4479C00649089 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96E9C0182CA4479C00649089 /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +88,8 @@
 		963DD49C2CA30DAE008EE0B5 /* LMCrypto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LMCrypto.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		963DD4AC2CA30DB0008EE0B5 /* LMCryptoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LMCryptoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		963DD4B62CA30DB0008EE0B5 /* LMCryptoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LMCryptoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		96655DF72CA453EB00FBE78C /* PaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationModel.swift; sourceTree = "<group>"; };
+		96655DF92CA4541000FBE78C /* CoinListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListItemModel.swift; sourceTree = "<group>"; };
 		96E9BF052CA3463F00649089 /* LMCryptoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMCryptoApp.swift; sourceTree = "<group>"; };
 		96E9BF072CA3463F00649089 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		96E9BF082CA3463F00649089 /* ConfigConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigConstant.swift; sourceTree = "<group>"; };
@@ -136,6 +137,7 @@
 		96E9BF952CA3463F00649089 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		96E9BF972CA3463F00649089 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		96E9BF982CA3463F00649089 /* image.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = image.xcassets; sourceTree = "<group>"; };
+		96E9BF9A2CA3463F00649089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		96E9BFFD2CA3464500649089 /* LMCryptoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMCryptoTests.swift; sourceTree = "<group>"; };
 		96E9C0002CA3464800649089 /* LMCryptoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMCryptoUITests.swift; sourceTree = "<group>"; };
 		96E9C0012CA3464800649089 /* LMCryptoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMCryptoUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -143,9 +145,6 @@
 		96E9C0072CA3594F00649089 /* ApiDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiDataSource.swift; sourceTree = "<group>"; };
 		96E9C0092CA3599E00649089 /* ApiCoin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCoin.swift; sourceTree = "<group>"; };
 		96E9C00B2CA386B100649089 /* InviteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteCardView.swift; sourceTree = "<group>"; };
-		96E9C00E2CA42A3600649089 /* PaginationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationModel.swift; sourceTree = "<group>"; };
-		96E9C0102CA42ABF00649089 /* CoinListItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListItemModel.swift; sourceTree = "<group>"; };
-		96E9C0182CA4479C00649089 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,9 +304,9 @@
 		96E9BF302CA3463F00649089 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				96E9C00E2CA42A3600649089 /* PaginationModel.swift */,
 				96E9BF2A2CA3463F00649089 /* ApiBaseModel.swift */,
 				96E9BF2B2CA3463F00649089 /* CoinModel.swift */,
+				96655DF72CA453EB00FBE78C /* PaginationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -425,7 +424,6 @@
 		96E9BF572CA3463F00649089 /* InAppView */ = {
 			isa = PBXGroup;
 			children = (
-				96E9C00D2CA394C400649089 /* ErrorView */,
 				96E9BF492CA3463F00649089 /* Card */,
 				96E9BF4D2CA3463F00649089 /* Placeholder */,
 			);
@@ -469,7 +467,7 @@
 		96E9BF7D2CA3463F00649089 /* RootView */ = {
 			isa = PBXGroup;
 			children = (
-				96E9C0102CA42ABF00649089 /* CoinListItemModel.swift */,
+				96655DF92CA4541000FBE78C /* CoinListItemModel.swift */,
 				96E9BF792CA3463F00649089 /* RootView.swift */,
 				96E9BF7B2CA3463F00649089 /* RootInteractor.swift */,
 				96E9BF7C2CA3463F00649089 /* RootPresenter.swift */,
@@ -532,7 +530,7 @@
 				96E9BF942CA3463F00649089 /* Localization */,
 				96E9BF962CA3463F00649089 /* Preview Content */,
 				96E9BF992CA3463F00649089 /* Resource */,
-				96E9C0182CA4479C00649089 /* Info.plist */,
+				96E9BF9A2CA3463F00649089 /* Info.plist */,
 			);
 			path = LMCrypto;
 			sourceTree = "<group>";
@@ -552,13 +550,6 @@
 				96E9C0012CA3464800649089 /* LMCryptoUITestsLaunchTests.swift */,
 			);
 			path = LMCryptoUITests;
-			sourceTree = "<group>";
-		};
-		96E9C00D2CA394C400649089 /* ErrorView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ErrorView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -686,7 +677,6 @@
 				96E9BFF82CA3463F00649089 /* Localizable.xcstrings in Resources */,
 				96E9BFF92CA3463F00649089 /* Preview Assets.xcassets in Resources */,
 				96E9BFFA2CA3463F00649089 /* Assets.xcassets in Resources */,
-				96E9C0192CA4479C00649089 /* Info.plist in Resources */,
 				96E9BFFB2CA3463F00649089 /* image.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -718,7 +708,6 @@
 				96E9BF9F2CA3463F00649089 /* ColorDesignSystem.swift in Sources */,
 				96E9BFA02CA3463F00649089 /* ColorPalette.swift in Sources */,
 				96E9C0082CA3595500649089 /* ApiDataSource.swift in Sources */,
-				96E9C0112CA42AD900649089 /* CoinListItemModel.swift in Sources */,
 				96E9BFA12CA3463F00649089 /* FontDesignSystem.swift in Sources */,
 				96E9BFA22CA3463F00649089 /* ThemeState.swift in Sources */,
 				96E9BFA32CA3463F00649089 /* BorderCornerExtension.swift in Sources */,
@@ -739,7 +728,7 @@
 				96E9BFBA2CA3463F00649089 /* NetworkMonitor.swift in Sources */,
 				96E9BFBB2CA3463F00649089 /* Utils.swift in Sources */,
 				96E9BFBC2CA3463F00649089 /* LineView.swift in Sources */,
-				96E9C00F2CA42A4100649089 /* PaginationModel.swift in Sources */,
+				96655DF82CA453EB00FBE78C /* PaginationModel.swift in Sources */,
 				96E9BFBD2CA3463F00649089 /* SeeMoreText.swift in Sources */,
 				96E9C00C2CA386B700649089 /* InviteCardView.swift in Sources */,
 				96E9BFBE2CA3463F00649089 /* FlexView.swift in Sources */,
@@ -748,6 +737,7 @@
 				96E9BFC12CA3463F00649089 /* ToastView.swift in Sources */,
 				96E9BFC22CA3463F00649089 /* CoinCardView.swift in Sources */,
 				96E9BFC52CA3463F00649089 /* ImagePlaceHodlerView.swift in Sources */,
+				96655DFA2CA4541000FBE78C /* CoinListItemModel.swift in Sources */,
 				96E9BFD92CA3463F00649089 /* LaunchScreenView.swift in Sources */,
 				96E9BFE12CA3463F00649089 /* RootView.swift in Sources */,
 				96E9BFE22CA3463F00649089 /* RootInteractor.swift in Sources */,
@@ -794,6 +784,7 @@
 /* Begin XCBuildConfiguration section */
 		963DD4BE2CA30DB0008EE0B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E9BF0A2CA3463F00649089 /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -858,6 +849,7 @@
 		};
 		963DD4BF2CA30DB0008EE0B5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E9BF0A2CA3463F00649089 /* Production.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1053,6 +1045,7 @@
 		};
 		964EFE6D2CA310780060AE9E /* Debug-UAT */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E9BF0B2CA3463F00649089 /* UAT.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1186,6 +1179,7 @@
 		};
 		964EFE712CA310830060AE9E /* Debug-Dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E9BF092CA3463F00649089 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1319,6 +1313,7 @@
 		};
 		964EFE752CA3109F0060AE9E /* Release-UAT */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E9BF0B2CA3463F00649089 /* UAT.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1445,6 +1440,7 @@
 		};
 		964EFE792CA310AE0060AE9E /* Release-Dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E9BF092CA3463F00649089 /* Development.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
