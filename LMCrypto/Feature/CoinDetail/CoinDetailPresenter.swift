@@ -61,4 +61,8 @@ class CoinDetailPresenter: ObservableObject {
             isShowSkeleton = false
         }
     }
+
+    func setErrorState(_ error: ApiErrorState) {
+        errorState = error
+    }
 }

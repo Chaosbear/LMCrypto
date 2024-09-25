@@ -65,14 +65,42 @@ struct CoinDetailView: View {
 
     // MARK: - UI Body
     var body: some View {
+        ZStack(alignment: .top) {
+            content
+
+            if presenter.errorState != .noError {
+                errorView
+            }
+
+            if presenter.isShowSkeleton {
+                contentSkeleton
+            }
+
+        }
+        .background(Color(Palette.white))
+        .onViewDidLoad {
+            interactor.loadData()
+        }
+    }
+
+    // MARK: - UI Component
+    @ViewBuilder
+    private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             ScrollView(.vertical) {
                 VStack(alignment: .leading, spacing: 16) {
-                    conInfo
-                    Text(presenter.coinDetail?.description ?? "")
-                        .modifier(descriptionTextStyle)
-                        .multilineTextAlignment(.leading)
-                        .lineSpacing(6)
+                    coinInfo
+                    if let desc = presenter.coinDetail?.description, !desc.isEmpty {
+                        Text(desc)
+                            .modifier(descriptionTextStyle)
+                            .multilineTextAlignment(.leading)
+                            .lineSpacing(6)
+                    } else {
+                        Text("No description")
+                            .modifier(descriptionTextStyle)
+                            .multilineTextAlignment(.leading)
+                            .lineSpacing(6)
+                    }
                 }
                 .frameHorizontalExpand(alignment: .leading)
                 .padding(.horizontal, 24)
@@ -93,15 +121,10 @@ struct CoinDetailView: View {
                     }
             }
         }
-        .background(Color(Palette.white))
-        .onViewDidLoad {
-            interactor.loadData()
-        }
     }
 
-    // MARK: - UI Component
     @ViewBuilder
-    private var conInfo: some View {
+    private var coinInfo: some View {
         HStack(alignment: .top, spacing: 16) {
             AsyncImage(url: presenter.coinDetail?.icon) { phase in
                 if let image = phase.image {
@@ -141,6 +164,67 @@ struct CoinDetailView: View {
             .lineLimit(1)
             .minimumScaleFactor(0.6)
         }
+    }
+
+    @ViewBuilder
+    private var contentSkeleton: some View {
+        ScrollView(.vertical) {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack(alignment: .top, spacing: 16) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white)
+                        .frame(width: 50, height: 50)
+
+                    VStack(alignment: .leading, spacing: 6) {
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.white)
+                            .frame(width: 80, height: 18)
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.white)
+                            .frame(width: 60, height: 12)
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.white)
+                            .frame(width: 120, height: 12)
+                    }
+                }
+                .shimmering()
+
+                VStack(alignment: .leading, spacing: 6) {
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.white)
+                        .frame(height: 14)
+                        .frameHorizontalExpand(alignment: .center)
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.white)
+                        .frame(height: 14)
+                        .frameHorizontalExpand(alignment: .center)
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.white)
+                        .frame(height: 14)
+                        .frameHorizontalExpand(alignment: .center)
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.white)
+                        .frame(height: 14)
+                        .padding(.trailing, 180)
+                        .frameHorizontalExpand(alignment: .center)
+                }
+                .shimmering()
+            }
+            .frameHorizontalExpand(alignment: .leading)
+            .padding(.horizontal, 24)
+            .padding(.vertical, 32)
+        }
+        .background(Color(Palette.white))
+    }
+
+    @ViewBuilder
+    private var errorView: some View {
+        ErrorView(msg: "Could not load data", btnTitle: "Try again") {
+            interactor.loadData()
+        }
+        .disabled(presenter.isLoadingCoin)
+        .frameExpand(alignment: .center)
+        .background(Color(Palette.white))
     }
 }
 

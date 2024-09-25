@@ -71,6 +71,7 @@ class ApiManager {
         ) {
             $0.timeoutInterval = timeout
         }
+        .validate(statusCode: 200...399)
     }
 }
 

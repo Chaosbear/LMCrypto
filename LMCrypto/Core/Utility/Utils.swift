@@ -56,7 +56,7 @@ struct Utils {
         func unit(_ desiredUnit: SIPrefixs.Unit) -> String {
             switch desiredUnit {
             case .symbol: return symbol
-            case .magnitude: return magnitude
+            case .magnitude: return " " + magnitude
             }
         }
 

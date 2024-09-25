@@ -25,9 +25,6 @@ class CoinDetailInteractor: CoinDetailInteractorProtocol {
         }
     }
 
-    // response
-    private var getCoinResponse = ApiResponseStatusModel()
-
     // dependency
     weak var presenter: CoinDetailPresenter?
     private let coinRepo: CoinRepositoryProtocol
@@ -56,12 +53,12 @@ class CoinDetailInteractor: CoinDetailInteractorProtocol {
 
         let data = await coinRepo.getCoinDetail(id: coinId)
 
-        getCoinResponse = data.2
-
         if let model = data.0?.coin, data.2.isSuccess {
             let detail = CoinDetailPresenter.CoinDetailModel(model: model)
             await presenter?.setCoinDetail(detail)
         }
+
+        await presenter?.setErrorState(ApiErrorState.defaultErrorHandler([data.2]))
 
         isLoadingCoin = false
     }
