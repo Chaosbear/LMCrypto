@@ -1,14 +1,14 @@
 //
 //  RootInteractor.swift
-//  dev-ex-ios
+//  LMCrypto
 //
-//  Created by Sukrit Chatmeeboon on 7/9/2567 BE.
+//  Created by Sukrit Chatmeeboon on 24/9/2567 BE.
 //
 
 import Foundation
 
 protocol RootInteractorProtocol {
-    func selectTab(tab: RootViewTab)
+    func selectTab(tab: Int)
 }
 
 class RootInteractor: RootInteractorProtocol {
@@ -19,7 +19,7 @@ class RootInteractor: RootInteractorProtocol {
     weak var presenter: RootPresenter?
 
     // MARK: - Event
-    func selectTab(tab: RootViewTab) {
+    func selectTab(tab: Int) {
         if tab != presenter?.selectedTab {
             presenter?.selectTab(tab: tab)
         }

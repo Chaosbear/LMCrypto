@@ -1,8 +1,8 @@
 //
 //  RouterView.swift
-//  dev-ex-ios
+//  LMCrypto
 //
-//  Created by Sukrit Chatmeeboon on 23/7/2567 BE.
+//  Created by Sukrit Chatmeeboon on 24/9/2567 BE.
 //
 
 import SwiftUI
@@ -28,8 +28,9 @@ struct RouterView<Content: View>: View {
                 }
                 .toolbar(.hidden, for: .navigationBar)
         }
-        .sheet(item: $router.presentingSheet) { route in
-            router.view(for: route, type: .sheet)
+        .sheet(item: $router.presentingSheet) { property in
+            router.view(for: property.route, type: .sheet)
+                .presentationDetents(property.detent)
         }
         .fullScreenCover(item: $router.presentingFullScreenCover) { route in
             router.view(for: route, type: .fullScreenCover)

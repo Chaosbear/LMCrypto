@@ -47,9 +47,9 @@ struct TextStyler: ViewModifier {
     // declaring dynamicTypeSize environment
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     private var initialFont: FontType
-    private var color: Color
+    private(set) var color: Color
 
-    private var font: Font {
+    var font: Font {
         switch initialFont {
         case .custom(let name, let size):
             return .custom(name, size: size)

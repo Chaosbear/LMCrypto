@@ -1,8 +1,8 @@
 //
 //  ImagePlaceHodlerView.swift
-//  dev-ex-ios
+//  LMCrypto
 //
-//  Created by Sukrit Chatmeeboon on 13/9/2567 BE.
+//  Created by Sukrit Chatmeeboon on 24/9/2567 BE.
 //
 
 import SwiftUI
@@ -45,9 +45,15 @@ struct AltImageView: View {
 }
 
 struct LoadImageView: View {
+    var activeShimmer: Bool
+
+    init(_ activeShimmer: Bool = true) {
+        self.activeShimmer = activeShimmer
+    }
+
     var body: some View {
-        Color(Palette.darkGray)
-            .shimmering(bandSize: 0.6)
+        Color(Palette.whiteSmoke)
+            .shimmering(active: activeShimmer, bandSize: 0.6)
     }
 }
 

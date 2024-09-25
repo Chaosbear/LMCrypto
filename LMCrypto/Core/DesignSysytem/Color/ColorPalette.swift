@@ -9,21 +9,14 @@ import Foundation
 
 struct Palette {
     static var white: String { "FFFFFF" }
-    static var brilliantAzure: String { "2E90FA" }
-    static var mediumAquamarine: String { "6CE9A6" }
-    static var cyan: String { "00FFFF" }
-    static var brightLavender: String { "B692F6" }
-    static var milkWhite: String { "FCFCFD" }
-    static var blackPearl: String { "101323" }
-    static var brightGray: String { "EAECF0" }
-    static var lavenderMist: String { "E0EAFF" }
-    static var carminePink: String { "F04438" }
-    static var tealishGreen: String { "32D583" }
-    static var goldenGlow: String { "FEDF89" }
+    static var black: String { "000000" }
     static var nightRiderGray: String { "333333" }
-    static var dimGray: String { "636363" }
-    static var darkGray: String { "A8A8A8" }
-    static var gainboroGray: String { "D9D9D9" }
+    static var coolGray: String { "999999" }
+    static var deepCarminePink: String { "F82D2D" }
+    static var vividMalachite: String { "13BC24" }
     static var whiteSmoke: String { "F2F2F2" }
-    static var suvaGray: String { "878787" }
+    static var darkGray: String { "A8A8A8" }
+    static var ghostWhite: String { "F9F9F9" }
+    static var brilliantAzure: String { "38A0FF" }
+    static var hawkesBlue: String { "C5E6FF" }
 }

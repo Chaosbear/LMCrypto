@@ -1,8 +1,8 @@
 //
 //  AppScreen.swift
-//  dev-ex-ios
+//  LMCrypto
 //
-//  Created by Sukrit Chatmeeboon on 22/7/2567 BE.
+//  Created by Sukrit Chatmeeboon on 24/9/2567 BE.
 //
 
 import Foundation
@@ -55,11 +55,6 @@ class RouteArg: Hashable {
 // the possible destinations in Router
 enum Route: Hashable, Identifiable {
     case profile(args: RouteArg)
-    case authorProfile(args: RouteArg)
-    case article(args: RouteArg)
-    case course(args: RouteArg)
-    case setting(args: RouteArg)
-    case themeSetting(args: RouteArg)
 
     var id: Route { self }
 }

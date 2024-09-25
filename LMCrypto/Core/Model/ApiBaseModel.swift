@@ -1,48 +1,48 @@
 //
 //  ApiBaseModel.swift
-//  dev-ex-ios
+//  LMCrypto
 //
-//  Created by Sukrit Chatmeeboon on 8/9/2567 BE.
+//  Created by Sukrit Chatmeeboon on 24/9/2567 BE.
 //
 
 import Foundation
 
 struct ApiBaseModel<T: Codable> {
-    var code: Int
-    var data: T?
-    var isSuccess: Bool
+    var status: String
+    var code: String?
     var message: String?
+    var data: T?
 
     init(
-        code: Int = 0,
-        data: T? = nil,
-        isSuccess: Bool = false,
-        message: String? = nil
+        status: String = "",
+        code: String = "",
+        message: String = "",
+        data: T? = nil
     ) {
+        self.status = status
         self.code = code
-        self.data = data
-        self.isSuccess = isSuccess
         self.message = message
+        self.data = data
     }
 }
 
 extension ApiBaseModel: Codable {
 
     enum CodingKeys: String, CodingKey {
+        case status = "status"
         case code = "code"
-        case data = "data"
-        case isSuccess = "isSuccess"
         case message = "message"
+        case data = "data"
     }
 
     init(from decoder: Decoder) throws {
         let map = try decoder.container(keyedBy: CodingKeys.self)
 
         do {
-            self.code = try map.decodeIfPresent(Int.self, forKey: .code) ?? 0
+            self.status = try map.decodeIfPresent(String.self, forKey: .status) ?? ""
+            self.code = try map.decodeIfPresent(String.self, forKey: .code) ?? nil
+            self.message = try map.decodeIfPresent(String.self, forKey: .message) ?? nil
             self.data = try map.decodeIfPresent(T.self, forKey: .data) ?? nil
-            self.isSuccess = try map.decodeIfPresent(Bool.self, forKey: .isSuccess) ?? false
-            self.message = try map.decodeIfPresent(String?.self, forKey: .message) ?? nil
         } catch {
             self = Self()
         }
@@ -51,16 +51,16 @@ extension ApiBaseModel: Codable {
 
 struct ApiResponseStatusModel {
     let isSuccess: Bool
-    let message: String?
+    let error: Error?
     let statusCode: Int
 
     init(
         _ isSuccess: Bool = true,
-        _ message: String? = nil,
+        _ error: Error? = nil,
         _ statusCode: Int = 0
     ) {
         self.isSuccess = isSuccess
-        self.message = message
+        self.error = error
         self.statusCode = statusCode
     }
 }

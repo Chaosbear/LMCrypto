@@ -9,3 +9,9 @@
 // https://help.apple.com/xcode/#/dev745c5c974
 
 #include "Base.xcconfig"
+
+// Flag
+USE_MOCK_DATA = NO
+
+// NetFox
+ENABLE_NETFOX = YES

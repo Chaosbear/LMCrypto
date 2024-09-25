@@ -1,52 +1,13 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    ":" : {
-
-    },
-    "(%@)" : {
+    " Invite your friend" : {
 
     },
     "%@" : {
 
     },
-    "+" : {
-
-    },
-    "ArticleView %lld" : {
-
-    },
-    "AuthorProfileView %lld" : {
-
-    },
-    "Count %lld" : {
-
-    },
-    "CourseView %lld" : {
-
-    },
-    "Hex %lld" : {
-
-    },
-    "Home" : {
-
-    },
-    "Library %lld" : {
-
-    },
-    "Notification %lld" : {
-
-    },
-    "ProfileView %lld" : {
-
-    },
-    "Search %lld" : {
-
-    },
-    "SettingView %lld" : {
-
-    },
-    "ThemeSettingView %lld" : {
+    "You can earn $10  when you invite a friend to buy crypto." : {
 
     }
   },

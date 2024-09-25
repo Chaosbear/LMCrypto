@@ -27,41 +27,33 @@ protocol ColorSystemProtocol {
     var h3: Color { get }
     var h4: Color { get }
     var h5: Color { get }
-    var h6: Color { get }
-    var subTitle1: Color { get }
-    var subTitle2: Color { get }
     var body1: Color { get }
     var body2: Color { get }
-    var button: Color { get }
     var caption: Color { get }
     var overline: Color { get }
 }
 
 struct DefaultColorTheme: ColorSystemProtocol {
-    var primary = Color(Palette.brilliantAzure)
-    var primary2 = Color(Palette.mediumAquamarine)
-    var secondary = Color(Palette.cyan)
-    var secondary2 = Color(Palette.brightLavender)
+    var primary = Color(Palette.nightRiderGray)
+    var primary2 = Color(Palette.nightRiderGray)
+    var secondary = Color(Palette.nightRiderGray)
+    var secondary2 = Color(Palette.nightRiderGray)
     var neutral = Color(Palette.nightRiderGray)
-    var background = Color(light: Palette.milkWhite, night: Palette.blackPearl)
-    var surface = Color(Palette.brightGray)
-    var surfaceOn = Color(Palette.lavenderMist)
-    var success = Color(Palette.tealishGreen)
-    var warning = Color(Palette.goldenGlow)
-    var error = Color(Palette.carminePink)
-    var shadow = Color(Palette.gainboroGray)
+    var background = Color(light: Palette.nightRiderGray, night: Palette.nightRiderGray)
+    var surface = Color(Palette.ghostWhite)
+    var surfaceOn = Color(Palette.nightRiderGray)
+    var success = Color(Palette.nightRiderGray)
+    var warning = Color(Palette.nightRiderGray)
+    var error = Color(Palette.nightRiderGray)
+    var shadow = Color(Palette.black)
 
-    var h1 = Color(light: Palette.nightRiderGray, night: Palette.whiteSmoke)
-    var h2 = Color(light: Palette.nightRiderGray, night: Palette.whiteSmoke)
-    var h3 = Color(light: Palette.nightRiderGray, night: Palette.whiteSmoke)
-    var h4 = Color(light: Palette.dimGray, night: Palette.gainboroGray)
-    var h5 = Color(light: Palette.dimGray, night: Palette.gainboroGray)
-    var h6 = Color(light: Palette.dimGray, night: Palette.gainboroGray)
-    var subTitle1 = Color(light: Palette.nightRiderGray, night: Palette.whiteSmoke)
-    var subTitle2 = Color(light: Palette.dimGray, night: Palette.gainboroGray)
-    var body1 = Color(light: Palette.nightRiderGray, night: Palette.whiteSmoke)
-    var body2 = Color(light: Palette.dimGray, night: Palette.gainboroGray)
-    var button = Color(Palette.white)
-    var caption = Color(Palette.darkGray)
-    var overline = Color(Palette.brilliantAzure)
+    var h1 = Color(light: Palette.nightRiderGray, night: Palette.nightRiderGray)
+    var h2 = Color(light: Palette.nightRiderGray, night: Palette.nightRiderGray)
+    var h3 = Color(light: Palette.nightRiderGray, night: Palette.nightRiderGray)
+    var h4 = Color(light: Palette.nightRiderGray, night: Palette.nightRiderGray)
+    var h5 = Color(light: Palette.nightRiderGray, night: Palette.nightRiderGray)
+    var body1 = Color(light: Palette.nightRiderGray, night: Palette.nightRiderGray)
+    var body2 = Color(light: Palette.nightRiderGray, night: Palette.nightRiderGray)
+    var caption = Color(Palette.nightRiderGray)
+    var overline = Color(Palette.nightRiderGray)
 }

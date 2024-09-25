@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import netfox
+
 @main
 struct LMCryptoApp: App {
     // MARK: - Property
@@ -59,6 +61,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     }
 
     func configure() {
+        #if DEBUG
+        NFX.sharedInstance().start()
+        #else
+        if Config.enableNetFox {
+            NFX.sharedInstance().start()
+        }
+        #endif
+
         NWMonitor.shared.startMonitoring()
+    }
+
+    func applicationWillTerminate(_ application: UIApplication) {
+        NWMonitor.shared.stopMonitoring()
     }
 }

@@ -1,11 +1,18 @@
 //
 //  AppRouter.swift
-//  dev-ex-ios
+//  LMCrypto
 //
-//  Created by Sukrit Chatmeeboon on 22/7/2567 BE.
+//  Created by Sukrit Chatmeeboon on 24/9/2567 BE.
 //
 
 import SwiftUI
+
+struct PresentSheetPropety: Identifiable {
+    var id: Route { route }
+
+    let route: Route
+    let detent: Set<PresentationDetent>
+}
 
 protocol RouterProtocol {
     func dismiss(type: Router.NavigationType?)
@@ -14,7 +21,7 @@ protocol RouterProtocol {
     func navigateTo(_ appRoute: Route)
     func navigateBack()
     func popToRoot()
-    func presentSheet(_ route: Route)
+    func presentSheet(_ route: PresentSheetPropety)
     func presentFullScreen(_ route: Route)
 }
 
@@ -35,7 +42,7 @@ class Router: ObservableObject, RouterProtocol {
     @Published var path: NavigationPath = NavigationPath()
 
     /// Used to present a view using a sheet
-    var presentingSheet: Route?
+    var presentingSheet: PresentSheetPropety?
     /// Used to present a view using a full screen cover
     var presentingFullScreenCover: Route?
     /// Used for access parent Router instances to dissmiss or navigate to other view
@@ -88,7 +95,7 @@ class Router: ObservableObject, RouterProtocol {
     }
 
     /// Used to present a screen using a sheet
-    func presentSheet(_ route: Route) {
+    func presentSheet(_ route: PresentSheetPropety) {
         self.presentingSheet = route
     }
 
@@ -104,17 +111,7 @@ extension Router {
     func view(for route: Route, type: NavigationType) -> some View {
         switch route {
         case .profile(let args):
-            ProfileView.view(args)
-        case .authorProfile(let args):
-            AuthorProfileView.view(args)
-        case .article(let args):
-            ArticleView.view(args)
-        case .course(let args):
-            CourseView.view(args)
-        case .setting(let args):
-            SettingView.view(args)
-        case .themeSetting(let args):
-            ThemeSettingView.view(args)
+            ProgressView()
         }
     }
 }

@@ -1,8 +1,8 @@
 //
 //  RootPresenter.swift
-//  dev-ex-ios
+//  LMCrypto
 //
-//  Created by Sukrit Chatmeeboon on 7/9/2567 BE.
+//  Created by Sukrit Chatmeeboon on 24/9/2567 BE.
 //
 
 import Foundation
@@ -12,10 +12,10 @@ class RootPresenter: ObservableObject {
     static let shared = RootPresenter()
 
     // MARK: - Property
-    @Published private(set) var selectedTab: RootViewTab = .home
+    @Published private(set) var selectedTab: Int = 0
 
     // MARK: - Event
-    func selectTab(tab: RootViewTab) {
+    func selectTab(tab: Int) {
         if tab != selectedTab {
             selectedTab = tab
         }

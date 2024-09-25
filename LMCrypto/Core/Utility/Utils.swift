@@ -12,12 +12,14 @@ struct Utils {
     static func numberFormatter(
         withNumber value: Any,
         style: NumberFormatter.Style = .decimal,
+        rounding: NumberFormatter.RoundingMode = .halfUp,
         decimal: Int = 0
     ) -> String {
         guard let number = Double(String(describing: value)) else { return "Invalid Input format or Type" }
 
         let formatter = NumberFormatter()
         formatter.numberStyle = style
+        formatter.roundingMode = rounding
         formatter.maximumFractionDigits = decimal
         formatter.minimumFractionDigits = decimal
         guard let message = formatter.string(for: number) else { return "n/a" }
@@ -226,5 +228,53 @@ struct Utils {
         formatter.dateFormat = outFormat.value
 
         return formatter.string(from: date)
+    }
+
+    // MARK: - Encode Decode
+    static func jsonStrToCodable<T: Codable>(jsonStr: String, type: T.Type) -> T? {
+        let data = Data(jsonStr.utf8)
+        let decoder = JSONDecoder()
+        var result: T?
+        do {
+            result = try decoder.decode(type, from: data)
+            return result
+        } catch {
+            return nil
+        }
+    }
+
+    static func dataToCodable<T: Codable>(
+        data: Data,
+        type: T.Type,
+        decoder: JSONDecoder = JSONDecoder()
+    ) -> T? {
+        var result: T?
+        do {
+            result = try decoder.decode(type, from: data)
+            return result
+        } catch {
+            return nil
+        }
+    }
+
+    static func dictToCodable<T: Codable>(dict: [AnyHashable: Any], type: T.Type) -> T? {
+        var result: T?
+        do {
+            let data = try JSONSerialization.data(withJSONObject: dict)
+            result = try JSONDecoder().decode(type, from: data)
+            return result
+        } catch {
+            return nil
+        }
+    }
+
+    static func codableToJsonStr(of model: Codable) -> String? {
+        do {
+            let jsonData = try JSONEncoder().encode(model)
+            let jsonString = String(data: jsonData, encoding: .utf8)!
+            return jsonString
+        } catch {
+            return nil
+        }
     }
 }
