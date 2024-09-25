@@ -54,7 +54,7 @@ class RouteArg: Hashable {
 
 // the possible destinations in Router
 enum Route: Hashable, Identifiable {
-    case profile(args: RouteArg)
+    case coinDetail(id: String)
 
     var id: Route { self }
 }

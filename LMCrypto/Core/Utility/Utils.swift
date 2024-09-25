@@ -49,6 +49,17 @@ struct Utils {
         case zepto = -21
         case yocto = -24
 
+        enum Unit {
+            case symbol, magnitude
+        }
+
+        func unit(_ desiredUnit: SIPrefixs.Unit) -> String {
+            switch desiredUnit {
+            case .symbol: return symbol
+            case .magnitude: return magnitude
+            }
+        }
+
         var symbol: String {
             switch self {
             case .yotta: return "Y"
@@ -74,6 +85,18 @@ struct Utils {
             case .yocto: return "y"
             }
         }
+
+        var magnitude: String {
+            switch self {
+            case .peta: return "quadrillion"
+            case .tera: return "trillion"
+            case .giga: return "billion"
+            case .mega: return "million"
+            case .kilo: return "thousand"
+            case .hecto: return "hundred"
+            default: return ""
+            }
+        }
     }
 
     static func numberFormatterWithSIPrefix(
@@ -83,6 +106,7 @@ struct Utils {
         maxPrefix: SIPrefixs = .yotta,
         decimalPlaces: Int = 1,
         roundRule: FloatingPointRoundingRule = .toNearestOrAwayFromZero,
+        prefixUnit: SIPrefixs.Unit = .symbol,
         unit: String? = nil,
         showZeroDecimal: Bool = false
     ) -> String {
@@ -130,9 +154,9 @@ struct Utils {
         finalNum = (finalNum * pow(10, Double(decimalPlaces))).rounded(roundRule) / pow(10, Double(decimalPlaces))
 
         if !showZeroDecimal && (finalNum - finalNum.rounded(.towardZero)) == 0.0 {
-            finalString = "\(numberFormatter(withNumber: Int(finalNum), style: .decimal, decimal: decimalPlaces))\(selectedPrefix?.symbol ?? "")"
+            finalString = "\(numberFormatter(withNumber: Int(finalNum), style: .decimal, decimal: decimalPlaces))\(selectedPrefix?.unit(prefixUnit) ?? "")"
         } else {
-            finalString = "\(numberFormatter(withNumber: finalNum, style: .decimal, decimal: decimalPlaces))\(selectedPrefix?.symbol ?? "")"
+            finalString = "\(numberFormatter(withNumber: finalNum, style: .decimal, decimal: decimalPlaces))\(selectedPrefix?.unit(prefixUnit) ?? "")"
         }
 
         if let unit = unit {

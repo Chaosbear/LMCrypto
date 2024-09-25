@@ -7,11 +7,22 @@
 
 import SwiftUI
 
-struct PresentSheetPropety: Identifiable {
+struct PresentSheetProperty: Identifiable {
     var id: Route { route }
 
     let route: Route
     let detent: Set<PresentationDetent>
+    let grabber: Visibility
+
+    init(
+        route: Route,
+        detent: Set<PresentationDetent> = [.large],
+        grabber: Visibility = .visible
+    ) {
+        self.route = route
+        self.detent = detent
+        self.grabber = grabber
+    }
 }
 
 protocol RouterProtocol {
@@ -21,7 +32,7 @@ protocol RouterProtocol {
     func navigateTo(_ appRoute: Route)
     func navigateBack()
     func popToRoot()
-    func presentSheet(_ route: PresentSheetPropety)
+    func presentSheet(_ route: PresentSheetProperty)
     func presentFullScreen(_ route: Route)
 }
 
@@ -42,9 +53,9 @@ class Router: ObservableObject, RouterProtocol {
     @Published var path: NavigationPath = NavigationPath()
 
     /// Used to present a view using a sheet
-    var presentingSheet: PresentSheetPropety?
+    @Published var presentingSheet: PresentSheetProperty?
     /// Used to present a view using a full screen cover
-    var presentingFullScreenCover: Route?
+    @Published var presentingFullScreenCover: Route?
     /// Used for access parent Router instances to dissmiss or navigate to other view
     private weak var parent: Router?
 
@@ -95,7 +106,7 @@ class Router: ObservableObject, RouterProtocol {
     }
 
     /// Used to present a screen using a sheet
-    func presentSheet(_ route: PresentSheetPropety) {
+    func presentSheet(_ route: PresentSheetProperty) {
         self.presentingSheet = route
     }
 
@@ -110,8 +121,8 @@ extension Router {
     @ViewBuilder
     func view(for route: Route, type: NavigationType) -> some View {
         switch route {
-        case .profile(let args):
-            ProgressView()
+        case .coinDetail(let id):
+            CoinDetailView.view(id: id)
         }
     }
 }

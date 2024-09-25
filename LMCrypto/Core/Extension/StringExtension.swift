@@ -59,7 +59,7 @@ extension String {
         }
     }
 
-    func imageUrl() -> URL? {
+    func encodedUrl() -> URL? {
         return encodeUrl().map { URL(string: $0)} ?? nil
     }
 }

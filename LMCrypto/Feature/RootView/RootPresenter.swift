@@ -15,7 +15,12 @@ class RootPresenter: ObservableObject {
     // MARK: - Property
     // coin data
     @Published private(set) var topCoinList: [CoinListItemModel] = []
-    @Published private(set) var coinList: [CoinListItemModel] = []
+    @Published private(set) var coinList: [CoinListItemModel] = [] {
+        didSet {
+            lastCoinId = coinList.last?.id
+        }
+    }
+    private(set) var lastCoinId: String?
 
     // loading state
     @Published private(set) var isShowSkeleton = true

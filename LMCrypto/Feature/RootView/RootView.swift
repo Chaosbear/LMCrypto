@@ -45,11 +45,11 @@ struct RootView: View {
         color: Color(Palette.black)
     )}
     private var topNumberTextStyle: TextStyler { TextStyler(
-        font: theme.font.h4.bold,
+        font: theme.font.h2.bold,
         color: Color(Palette.fireEngineRed)
     )}
     private var headerDescTextStyle: TextStyler { TextStyler(
-        font: .system(size: 16, weight: .semibold),
+        font: .system(size: 16, weight: .medium),
         color: Color(Palette.black)
     )}
 
@@ -79,8 +79,6 @@ struct RootView: View {
         )
         .onViewDidLoad {
             rootInteractor.loadAllData()
-            print("[lmwn] \(Config.enableNetFox)")
-            print("[lmwn] \(Config.useMockData)")
         }
     }
 
@@ -162,6 +160,11 @@ struct RootView: View {
                         data: item.cardData,
                         pressAction: {
                             focusedField = nil
+                            mainRouter.presentSheet(.init(
+                                route: .coinDetail(id: item.id),
+                                detent: [.fraction(0.6), .large],
+                                grabber: .hidden
+                            ))
                         }
                     )
                 }
@@ -192,10 +195,15 @@ struct RootView: View {
                         data: item.cardData,
                         pressAction: {
                             focusedField = nil
+                            mainRouter.presentSheet(.init(
+                                route: .coinDetail(id: item.id),
+                                detent: [.fraction(0.6), .large],
+                                grabber: .hidden
+                            ))
                         }
                     )
                     .onAppear {
-                        if item.id == rootPresenter.coinList.last?.id {
+                        if item.id == rootPresenter.lastCoinId {
                             rootInteractor.loadMoreList()
                         }
                     }

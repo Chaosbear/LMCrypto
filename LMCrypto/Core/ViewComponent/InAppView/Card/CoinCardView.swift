@@ -17,7 +17,7 @@ struct CoinCardData {
     let isUp: Bool
 
     init(model: CoinModel) {
-        self.icon = model.iconUrl.imageUrl()
+        self.icon = model.iconUrl.encodedUrl()?.deletingPathExtension().appendingPathExtension("png")
         self.symbol = model.symbol
         self.symbolColor = Color(model.color)
         self.name = model.name
@@ -96,10 +96,12 @@ struct CoinCardView: View {
         .background(theme.color.surface)
         .cornerRadius(8, corners: .allCorners)
         .shadow(color: theme.color.shadow.opacity(0.1), radius: 2, x: 0, y: 2)
+        .compositingGroup()
         .contentShape(.rect)
         .asButton {
             pressAction()
         }
+        .buttonStyle(.plain)
     }
 
     // MARK: - UI Component
@@ -216,10 +218,12 @@ struct TopCoinCardView: View {
         .background(theme.color.surface)
         .cornerRadius(8, corners: .allCorners)
         .shadow(color: theme.color.shadow.opacity(0.1), radius: 2, x: 0, y: 2)
+        .compositingGroup()
         .contentShape(.rect)
         .asButton {
             pressAction()
         }
+        .buttonStyle(.plain)
     }
 
     // MARK: - UI Component

@@ -31,6 +31,7 @@ struct RouterView<Content: View>: View {
         .sheet(item: $router.presentingSheet) { property in
             router.view(for: property.route, type: .sheet)
                 .presentationDetents(property.detent)
+                .presentationDragIndicator(property.grabber)
         }
         .fullScreenCover(item: $router.presentingFullScreenCover) { route in
             router.view(for: route, type: .fullScreenCover)
