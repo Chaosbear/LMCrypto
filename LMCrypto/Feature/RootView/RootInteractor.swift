@@ -113,10 +113,11 @@ class RootInteractor: RootInteractorProtocol {
                 CoinListItemModel(model: $0, hasInvite: false)
             }
             topCoinIds = list.coins.map { $0.uuid }
+            isLoadingTopList = false
             await presenter?.setTopCoinList(mappedList)
+        } else {
+            isLoadingTopList = false
         }
-
-        isLoadingTopList = false
     }
 
     private func getCoinList(search: String = "", offset: Int) async {
@@ -133,7 +134,6 @@ class RootInteractor: RootInteractorProtocol {
         )
 
         if let list = data.0, data.2.isSuccess, search == searchText, pagination.offset == offset {
-
             let mappedList = list.coins.filter { coin in
                 if !search.isEmpty {
                     return true
@@ -150,15 +150,18 @@ class RootInteractor: RootInteractorProtocol {
             }
             totalItem += mappedList.count
             totalItem += mappedList.count(where: { $0.hasInvite })
+
+            isLoadingList = false
+
             await presenter?.appendCoinList(mappedList, isReplace: pagination.loadedPage == 0)
 
             pagination.loadedPage += 1
             pagination.hasNext = list.coins.count >= pagination.limit
+        } else {
+            isLoadingList = false
         }
 
         await presenter?.setErrorState(ApiErrorState.defaultErrorHandler([data.2]))
-
-        isLoadingList = false
     }
 
     func resetData() async {
