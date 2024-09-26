@@ -55,13 +55,6 @@ class RootPresenter: ObservableObject {
         }
     }
 
-    func getTotalListItem() -> Int {
-        let totalCoin = coinList.count
-        let totalInvite = coinList.count(where: { $0.hasInvite })
-
-        return totalCoin + totalInvite
-    }
-
     func setLoadingTopList(_ isLoading: Bool) {
         isLoadingTopList = isLoading
         if isShowSkeleton && !isLoadingTopList && !isLoadingList {

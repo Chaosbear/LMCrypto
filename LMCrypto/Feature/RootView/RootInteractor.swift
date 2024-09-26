@@ -24,6 +24,7 @@ class RootInteractor: RootInteractorProtocol {
     // data
     @Published var searchText: String = ""
     private var topCoinIds: [String] = []
+    private var totalItem = 0
 
     // loading state
     private(set) var isLoadingTopList = false {
@@ -72,6 +73,7 @@ class RootInteractor: RootInteractorProtocol {
             .sink { [weak self] text in
                 guard let self, !isLoadingList else { return }
                 self.pagination = .init()
+                self.totalItem = 0
                 Task {
                     await self.getCoinList(
                         search: text,
@@ -121,6 +123,8 @@ class RootInteractor: RootInteractorProtocol {
         guard !isLoadingList, pagination.hasNext else { return }
         isLoadingList = true
 
+        let total = totalItem
+
         let data = await coinRepo.getCoinList(
             searchText: search,
             offset: offset,
@@ -129,9 +133,6 @@ class RootInteractor: RootInteractorProtocol {
         )
 
         if let list = data.0, data.2.isSuccess, search == searchText, pagination.offset == offset {
-
-            // this violate VIP architecture need to be refactor in the future
-            let totalItem = await presenter?.getTotalListItem() ?? 0
 
             let mappedList = list.coins.filter { coin in
                 if !search.isEmpty {
@@ -144,9 +145,11 @@ class RootInteractor: RootInteractorProtocol {
             .map { [weak self] index, coin in
                 CoinListItemModel(
                     model: coin,
-                    hasInvite: self?.checkHasInvite(index: index, total: totalItem) ?? false
+                    hasInvite: self?.checkHasInvite(index: index, total: total) ?? false
                 )
             }
+            totalItem += mappedList.count
+            totalItem += mappedList.count(where: { $0.hasInvite })
             await presenter?.appendCoinList(mappedList, isReplace: pagination.loadedPage == 0)
 
             pagination.loadedPage += 1
@@ -161,6 +164,7 @@ class RootInteractor: RootInteractorProtocol {
     func resetData() async {
         guard !isLoadingList, !isLoadingTopList else { return }
         pagination = .init()
+        totalItem = 0
         await getTopCoinList()
         await getCoinList(offset: pagination.offset)
     }
