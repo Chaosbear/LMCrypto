@@ -220,7 +220,7 @@ struct Utils {
         format: DateFormatInput = .iso8601,
         locale: String = DateFormatLocale.input.identifier
     ) -> Date? {
-        let formatter = iso8601DateFormat(format: format,locale: locale)
+        let formatter = iso8601DateFormat(format: format, locale: locale)
         return formatter.date(from: dateStr)
     }
 

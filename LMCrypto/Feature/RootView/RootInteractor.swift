@@ -155,7 +155,7 @@ class RootInteractor: RootInteractorProtocol {
             pagination.loadedPage += 1
             pagination.hasNext = list.coins.count >= pagination.limit
         }
-        
+
         await presenter?.setErrorState(ApiErrorState.defaultErrorHandler([data.2]))
 
         isLoadingList = false

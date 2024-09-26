@@ -38,7 +38,6 @@ class RootPresenter: ObservableObject {
     // other
     @Published private(set) var scrollToTop = false
 
-
     // MARK: - Event
     func setTopCoinList(_ list: [CoinListItemModel]) async {
         topCoinList = list

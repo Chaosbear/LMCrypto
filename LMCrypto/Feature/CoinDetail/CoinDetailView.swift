@@ -232,4 +232,3 @@ struct CoinDetailView: View {
 #Preview {
     CoinDetailView.view(id: "Bitcoin")
 }
-
