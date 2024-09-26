@@ -27,7 +27,12 @@ class RootPresenter: ObservableObject {
     @Published private(set) var isLoadingTopList = false
     @Published private(set) var isLoadingList = false
 
+    var isLoading: Bool {
+        isLoadingTopList || isLoadingList
+    }
+
     // error state
+    @Published private(set) var isEmptyList = false
     @Published private(set) var errorState: ApiErrorState = .noError
 
     // other
@@ -39,8 +44,22 @@ class RootPresenter: ObservableObject {
         topCoinList = list
     }
 
-    func appendCoinList(_ list: [CoinListItemModel]) async {
-        coinList.append(contentsOf: list)
+    func appendCoinList(_ list: [CoinListItemModel], isReplace: Bool) async {
+        if isReplace {
+            if !coinList.isEmpty {
+                scrollToTop = true
+            }
+            coinList = list
+        } else {
+            coinList.append(contentsOf: list)
+        }
+    }
+
+    func getTotalListItem() -> Int {
+        let totalCoin = coinList.count
+        let totalInvite = coinList.count(where: { $0.hasInvite })
+
+        return totalCoin + totalInvite
     }
 
     func setLoadingTopList(_ isLoading: Bool) {
@@ -55,5 +74,10 @@ class RootPresenter: ObservableObject {
         if isShowSkeleton && !isLoadingTopList && !isLoadingList {
             isShowSkeleton = false
         }
+    }
+
+    func setErrorState(_ error: ApiErrorState) {
+        errorState = error
+        isEmptyList = errorState == .noError && coinList.isEmpty
     }
 }

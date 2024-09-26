@@ -9,6 +9,7 @@ import Foundation
 
 protocol CoinRepositoryProtocol {
     func getCoinList(
+        searchText: String,
         offset: Int,
         limit: Int,
         orderBy: ApiDataSource.CoinOrderByType
@@ -25,11 +26,13 @@ struct CoinRepository: CoinRepositoryProtocol {
     }
 
     func getCoinList(
+        searchText: String,
         offset: Int,
         limit: Int,
         orderBy: ApiDataSource.CoinOrderByType
     ) async -> (CoinListModel?, ApiBaseModel<CoinListModel>?, ApiResponseStatusModel) {
         let response = await dataSource.getCoinList(
+            searchText: searchText,
             offset: offset,
             limit: limit,
             orderBy: orderBy

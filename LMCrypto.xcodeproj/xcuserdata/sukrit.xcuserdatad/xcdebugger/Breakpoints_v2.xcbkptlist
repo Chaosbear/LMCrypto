@@ -7,39 +7,23 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1A206563-1EBF-4649-B4C3-80B96CA49CCB"
+            uuid = "331630CF-BD2B-4B93-84A1-B7528C62F3E6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LMCrypto/Feature/CoinDetail/CoinDetailPresenter.swift"
+            filePath = "LMCrypto/Core/DataSource/Api/ApiManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "setErrorState(_:)"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "serializingDecodableHandler(of:err:decoder:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B8C9BE93-48B1-4204-8182-0062E87C27BE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LMCrypto/Core/Model/ApiBaseModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
-            landmarkName = "defaultErrorHandler(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5F2BF689-EC0B-4159-99B1-E9A2243FC0FF"
+            uuid = "8DB86559-54FA-4817-8985-CE767976803B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -49,6 +33,22 @@
             startingLineNumber = "140"
             endingLineNumber = "140"
             landmarkName = "serializingDecodableHandler(of:err:decoder:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "165F55D8-E719-4765-9900-88FAD4ECA2FB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LMCrypto/Feature/RootView/RootInteractor.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "bindObservable()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

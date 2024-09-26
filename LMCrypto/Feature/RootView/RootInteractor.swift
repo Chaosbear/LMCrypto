@@ -13,7 +13,7 @@ protocol RootInteractorProtocol {
 
     func loadAllData()
     func loadMoreList()
-    func clearSearchText()
+    func resetData() async
 }
 
 class RootInteractor: RootInteractorProtocol {
@@ -23,6 +23,7 @@ class RootInteractor: RootInteractorProtocol {
     // MARK: - Property
     // data
     @Published var searchText: String = ""
+    private var topCoinIds: [String] = []
 
     // loading state
     private(set) var isLoadingTopList = false {
@@ -35,17 +36,16 @@ class RootInteractor: RootInteractorProtocol {
     private(set) var isLoadingList = false {
         didSet {
             Task {
-                await presenter?.setLoadingList(isLoadingTopList)
+                await presenter?.setLoadingList(isLoadingList)
             }
         }
     }
 
-    // response
-    private var getTopCoinResponse = ApiResponseStatusModel()
-    private var getCoinResponse = ApiResponseStatusModel()
-
     // pagination
     private var pagination = PaginationModel()
+
+    // other
+    private var disposeBag: Set<AnyCancellable> = []
 
     // dependency
     weak var presenter: RootPresenter?
@@ -64,21 +64,34 @@ class RootInteractor: RootInteractorProtocol {
 
     // MARK: - Event
     private func bindObservable() {
-
+        $searchText
+            .dropFirst()
+            .debounce(for: 1, scheduler: DispatchQueue.global(qos: .userInteractive))
+            .removeDuplicates()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] text in
+                guard let self, !isLoadingList else { return }
+                self.pagination = .init()
+                Task {
+                    await self.getCoinList(
+                        search: text,
+                        offset: self.pagination.offset
+                    )
+                }
+            }
+            .store(in: &disposeBag)
     }
 
     func loadAllData() {
         Task {
-            async let topCoinList: Void = getTopCoinList()
-            async let coinList: Void = getCoinList()
-
-            _ = await [topCoinList, coinList]
+            await getTopCoinList()
+            await getCoinList(offset: pagination.offset)
         }
     }
 
     func loadMoreList() {
         Task {
-            await getCoinList()
+            await getCoinList(search: searchText, offset: pagination.offset)
         }
     }
 
@@ -87,49 +100,77 @@ class RootInteractor: RootInteractorProtocol {
         isLoadingTopList = true
 
         let data = await coinRepo.getCoinList(
+            searchText: "",
             offset: 0,
             limit: 3,
             orderBy: .marketCap
         )
 
-        getTopCoinResponse = data.2
-
         if let list = data.0, data.2.isSuccess {
             let mappedList = list.coins.map {
                 CoinListItemModel(model: $0, hasInvite: false)
             }
+            topCoinIds = list.coins.map { $0.uuid }
             await presenter?.setTopCoinList(mappedList)
         }
 
         isLoadingTopList = false
     }
 
-    private func getCoinList() async {
+    private func getCoinList(search: String = "", offset: Int) async {
         guard !isLoadingList, pagination.hasNext else { return }
         isLoadingList = true
 
         let data = await coinRepo.getCoinList(
-            offset: pagination.offset,
+            searchText: search,
+            offset: offset,
             limit: pagination.limit,
             orderBy: .marketCap
         )
 
-        getCoinResponse = data.2
+        if let list = data.0, data.2.isSuccess, search == searchText, pagination.offset == offset {
 
-        if let list = data.0, data.2.isSuccess {
-            let mappedList = list.coins.map {
-                CoinListItemModel(model: $0, hasInvite: false)
+            // this violate VIP architecture need to be refactor in the future
+            let totalItem = await presenter?.getTotalListItem() ?? 0
+
+            let mappedList = list.coins.filter { coin in
+                if !search.isEmpty {
+                    return true
+                } else {
+                    return !topCoinIds.contains(coin.uuid)
+                }
             }
+            .enumerated()
+            .map { [weak self] index, coin in
+                CoinListItemModel(
+                    model: coin,
+                    hasInvite: self?.checkHasInvite(index: index, total: totalItem) ?? false
+                )
+            }
+            await presenter?.appendCoinList(mappedList, isReplace: pagination.loadedPage == 0)
+
             pagination.loadedPage += 1
             pagination.hasNext = list.coins.count >= pagination.limit
-
-            await presenter?.appendCoinList(mappedList)
         }
+        
+        await presenter?.setErrorState(ApiErrorState.defaultErrorHandler([data.2]))
 
         isLoadingList = false
     }
 
-    func clearSearchText() {
-        searchText = ""
+    func resetData() async {
+        guard !isLoadingList, !isLoadingTopList else { return }
+        pagination = .init()
+        await getTopCoinList()
+        await getCoinList(offset: pagination.offset)
+    }
+
+    private func checkHasInvite(index: Int, total: Int) -> Bool {
+        let indexInTotal = index + total + 1
+
+        guard indexInTotal != 5 else { return true }
+        guard indexInTotal % 10 == 0 else { return false }
+
+        return log2(Double(indexInTotal) / 5).isInteger
     }
 }

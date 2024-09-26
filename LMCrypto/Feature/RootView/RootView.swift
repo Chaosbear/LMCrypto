@@ -69,7 +69,13 @@ struct RootView: View {
                 .padding(16)
             Divider()
                 .ignoresSafeArea(.all, edges: .horizontal)
-            coinContent
+
+            if rootPresenter.isShowSkeleton {
+                contentSkeleton
+                    .transition(.opacity.animation(.linear(duration: 0.2)))
+            } else {
+                coinContent
+            }
         }
         .background(
             Color(Palette.white)
@@ -96,14 +102,7 @@ struct RootView: View {
                 .onTapGesture {
                     focusedField = .search
                 }
-            let searchBinding = Binding<String>(
-                get: { searchText },
-                set: { value in
-                    searchText = value
-                    rootInteractor.searchText = value
-                }
-            )
-            TextField("Search", text: searchBinding)
+            TextField("Search", text: $searchText)
                 .modifier(searchTextStyle)
                 .focused($focusedField, equals: .search)
                 .autocapitalization(.none)
@@ -118,24 +117,60 @@ struct RootView: View {
                 .contentShape(.rect)
                 .asButton {
                     searchText = ""
-                    rootInteractor.clearSearchText()
                 }
-                .opacity(focusedField == .search ? 1 : 0)
+                .opacity((focusedField == .search && !searchText.isEmpty) ? 1 : 0)
         }
         .background(Color(Palette.brightGray).onTapGesture {
             focusedField = .search
         })
         .cornerRadius(8, corners: .allCorners)
+        .onChange(of: searchText) {
+            rootInteractor.searchText = $0
+        }
     }
 
     @ViewBuilder
     private var coinContent: some View {
-        ScrollView(.vertical) {
-            VStack(alignment: .leading, spacing: 22) {
-                topCoin
-                    .padding(.top, 16)
-                coinList
-                    .padding(.bottom, 24)
+        GeometryReader { proxy in
+            ScrollViewReader { scrollProxy in
+                ScrollView(.vertical) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Color.clear.frame(width: 1, height: 0)
+                            .id("topEdge")
+                        VStack(alignment: .leading, spacing: 0) {
+                            if rootPresenter.isEmptyList {
+                                noItemView
+                                    .frame(minHeight: proxy.size.height, alignment: .center)
+                            } else {
+                                if searchText.isEmpty && !rootPresenter.topCoinList.isEmpty {
+                                    topCoin
+                                        .padding(.bottom, 22)
+                                }
+                                coinList
+                            }
+                        }
+                        .padding(.top, 16)
+                        .padding(.bottom, 24)
+                        .frame(maxWidth: 640)
+                        .frameHorizontalExpand(alignment: .center)
+                    }
+                    .background(
+                        Color(Palette.white)
+                            .onTapGesture {
+                                focusedField = nil
+                            }
+                    )
+                    .onReceive(rootPresenter.$scrollToTop) { isScroll in
+                        if isScroll {
+                            scrollProxy.scrollTo("topEdge", anchor: .top)
+                        }
+                    }
+                }
+                .refreshable {
+                    guard focusedField == nil && !rootPresenter.isLoading else { return }
+                    searchText = ""
+                    await rootInteractor.resetData()
+                }
             }
         }
     }
@@ -182,15 +217,17 @@ struct RootView: View {
                 .padding(.horizontal, 16)
 
             LazyVStack(alignment: .leading, spacing: 12) {
-                ShareLink(item: URL(string: "https://careers.lmwn.com/")!, label: {
-                    Label {
-                        InviteCardView()
-                    } icon: {
-                        EmptyView()
-                    }
-                })
-
                 ForEach(rootPresenter.coinList) { item in
+                    if item.hasInvite {
+                        ShareLink(item: URL(string: "https://careers.lmwn.com/")!, label: {
+                            Label {
+                                InviteCardView()
+                            } icon: {
+                                EmptyView()
+                            }
+                        })
+                    }
+
                     CoinCardView(
                         data: item.cardData,
                         pressAction: {
@@ -210,7 +247,104 @@ struct RootView: View {
                 }
             }
             .padding(.horizontal, 8)
+
+            if rootPresenter.isLoadingList && !rootPresenter.coinList.isEmpty && rootPresenter.errorState == .noError {
+                ProgressView()
+                    .frameHorizontalExpand(alignment: .center)
+                    .frame(height: 60, alignment: .center)
+            }
+
+            if rootPresenter.errorState != .noError && !rootPresenter.isShowSkeleton {
+                ErrorView(msg: "Could not load data", btnTitle: "Try again") {
+                    rootInteractor.loadMoreList()
+                }
+                .disabled(rootPresenter.isLoadingList)
+                .frame(height: 80)
+                .frameHorizontalExpand(alignment: .center)
+            }
         }
+    }
+
+    @ViewBuilder
+    private var contentSkeleton: some View {
+        ScrollView(.vertical) {
+            VStack(alignment: .leading, spacing: 22) {
+                // top coin
+                VStack(alignment: .leading, spacing: 12) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white)
+                        .frame(width: 120, height: 16)
+                        .padding(.horizontal, 16)
+
+                    HStack(alignment: .top, spacing: 8) {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.white)
+                            .frameHorizontalExpand(alignment: .leading)
+                            .frame(height: 140)
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.white)
+                            .frameHorizontalExpand(alignment: .leading)
+                            .frame(height: 140)
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.white)
+                            .frameHorizontalExpand(alignment: .leading)
+                            .frame(height: 140)
+                    }
+                    .padding(.horizontal, 16)
+                }
+                .shimmering()
+                .padding(.top, 16)
+
+                // coin list
+                VStack(alignment: .leading, spacing: 12) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.white)
+                        .frame(width: 160, height: 16)
+                        .padding(.horizontal, 16)
+
+                    VStack(alignment: .leading, spacing: 12) {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.white)
+                            .frame(height: 82)
+                            .frameHorizontalExpand(alignment: .center)
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.white)
+                            .frame(height: 82)
+                            .frameHorizontalExpand(alignment: .center)
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.white)
+                            .frame(height: 82)
+                            .frameHorizontalExpand(alignment: .center)
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.white)
+                            .frame(height: 82)
+                            .frameHorizontalExpand(alignment: .center)
+                    }
+                    .padding(.horizontal, 8)
+                }
+                .shimmering()
+                .padding(.bottom, 24)
+            }
+            .frame(maxWidth: 640)
+            .frameHorizontalExpand(alignment: .center)
+        }
+        .background(Color(Palette.white))
+    }
+
+    @ViewBuilder
+    private var noItemView: some View {
+        ErrorView(
+            title: "Sorry",
+            msg: searchText.isEmpty ? "No result" : "No result match this keyword"
+        )
+        .padding(.bottom, 22)
+        .frameExpand()
+        .background(
+            Color(Palette.white)
+                .onTapGesture {
+                    focusedField = nil
+                }
+        )
     }
 }
 

@@ -135,7 +135,7 @@ extension DataRequest {
         err errType: E.Type,
         decoder: DataDecoder = JSONDecoder.iso8601()
     ) async -> (T?, E?, ApiResponseStatusModel) {
-        let dataResponse = await serializingDecodable(type, decoder: decoder).response
+        let dataResponse = await serializingDecodable(type, automaticallyCancelling: false, decoder: decoder).response
 
         if let response = dataResponse.response {
             switch dataResponse.result {

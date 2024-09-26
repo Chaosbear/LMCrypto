@@ -15,6 +15,8 @@
 		96655DFF2CA45F4B00FBE78C /* CoinDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96655DFE2CA45F4B00FBE78C /* CoinDetailInteractor.swift */; };
 		96655E012CA45F5C00FBE78C /* CoinDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96655E002CA45F5C00FBE78C /* CoinDetailPresenter.swift */; };
 		96655E032CA47C0E00FBE78C /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96655E022CA47C0E00FBE78C /* ErrorView.swift */; };
+		96655E062CA4F94D00FBE78C /* TaskExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96655E052CA4F94800FBE78C /* TaskExtension.swift */; };
+		96655E082CA5311900FBE78C /* DoubleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96655E072CA5311300FBE78C /* DoubleExtension.swift */; };
 		96E9BF9C2CA3463F00649089 /* LMCryptoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9BF052CA3463F00649089 /* LMCryptoApp.swift */; };
 		96E9BF9D2CA3463F00649089 /* ConfigConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9BF082CA3463F00649089 /* ConfigConstant.swift */; };
 		96E9BF9E2CA3463F00649089 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96E9BF0D2CA3463F00649089 /* ApiManager.swift */; };
@@ -98,6 +100,8 @@
 		96655DFE2CA45F4B00FBE78C /* CoinDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailInteractor.swift; sourceTree = "<group>"; };
 		96655E002CA45F5C00FBE78C /* CoinDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinDetailPresenter.swift; sourceTree = "<group>"; };
 		96655E022CA47C0E00FBE78C /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		96655E052CA4F94800FBE78C /* TaskExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskExtension.swift; sourceTree = "<group>"; };
+		96655E072CA5311300FBE78C /* DoubleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtension.swift; sourceTree = "<group>"; };
 		96E9BF052CA3463F00649089 /* LMCryptoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LMCryptoApp.swift; sourceTree = "<group>"; };
 		96E9BF072CA3463F00649089 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		96E9BF082CA3463F00649089 /* ConfigConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigConstant.swift; sourceTree = "<group>"; };
@@ -305,6 +309,8 @@
 		96E9BF232CA3463F00649089 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				96655E072CA5311300FBE78C /* DoubleExtension.swift */,
+				96655E052CA4F94800FBE78C /* TaskExtension.swift */,
 				96E9BF1A2CA3463F00649089 /* ViewExtension */,
 				96E9BF1B2CA3463F00649089 /* ArrayExtension.swift */,
 				96E9BF1C2CA3463F00649089 /* ColorExtension.swift */,
@@ -730,6 +736,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96655E062CA4F94D00FBE78C /* TaskExtension.swift in Sources */,
 				96E9BF9C2CA3463F00649089 /* LMCryptoApp.swift in Sources */,
 				96E9BF9D2CA3463F00649089 /* ConfigConstant.swift in Sources */,
 				96E9BF9E2CA3463F00649089 /* ApiManager.swift in Sources */,
@@ -759,6 +766,7 @@
 				96E9BFBC2CA3463F00649089 /* LineView.swift in Sources */,
 				96655DF82CA453EB00FBE78C /* PaginationModel.swift in Sources */,
 				96E9BFBD2CA3463F00649089 /* SeeMoreText.swift in Sources */,
+				96655E082CA5311900FBE78C /* DoubleExtension.swift in Sources */,
 				96E9C00C2CA386B700649089 /* InviteCardView.swift in Sources */,
 				96E9BFBE2CA3463F00649089 /* FlexView.swift in Sources */,
 				96655E032CA47C0E00FBE78C /* ErrorView.swift in Sources */,

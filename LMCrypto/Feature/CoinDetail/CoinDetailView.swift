@@ -74,6 +74,7 @@ struct CoinDetailView: View {
 
             if presenter.isShowSkeleton {
                 contentSkeleton
+                    .transition(.opacity.animation(.linear(duration: 0.2)))
             }
 
         }

@@ -17,8 +17,16 @@ extension ApiDataSource {
         case listedAt
     }
 
-    func getCoinList(offset: Int, limit: Int, orderBy: CoinOrderByType) -> DataRequest {
+    func getCoinList(
+        searchText: String,
+        offset: Int,
+        limit: Int,
+        orderBy: CoinOrderByType
+    ) async -> DataRequest {
         var params = defaultParameters()
+        if !searchText.isEmpty {
+            params["search"] = searchText
+        }
         params["offset"] = offset
         params["limit"] = limit
         params["orderBy"] = orderBy.rawValue
@@ -26,7 +34,7 @@ extension ApiDataSource {
         return manager.apiRequest(.get, apiVersion: .v2, path: "/coins", parameters: params)
     }
 
-    func getCoinDetail(id: String) -> DataRequest {
+    func getCoinDetail(id: String) async -> DataRequest {
         return manager.apiRequest(.get, apiVersion: .v2, path: "/coin/\(id)")
     }
 }
