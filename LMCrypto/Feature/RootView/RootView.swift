@@ -169,7 +169,9 @@ struct RootView: View {
                 .refreshable {
                     guard focusedField == nil && !rootPresenter.isLoading else { return }
                     searchText = ""
-                    await rootInteractor.resetData()
+                    async let delay: Void? = try? await Task.sleep(seconds: 0.5)
+                    async let loadData: Void = rootInteractor.resetData()
+                    _ = await [delay, loadData]
                 }
             }
         }
