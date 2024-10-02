@@ -7,6 +7,6 @@ LMWN Assignment
 **Tool** : Xcode 16.0
 
 ## Note
-Please contact me. If you have any problema while building or run this project because I implemented this project with Xcode 16.0.
+Please contact me. If you have any problem while building or run this project because I implemented this project with Xcode 16.0.
 
 Thank you.
