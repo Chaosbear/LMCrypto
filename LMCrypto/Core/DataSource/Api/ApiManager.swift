@@ -30,7 +30,7 @@ class ApiManager {
 
     init(session: Session = Session.default) {
         #if DEBUG
-        let configuration = URLSessionConfiguration.default
+        let configuration = URLSessionConfiguration.af.default
         configuration.protocolClasses?.insert(NFXProtocol.self, at: 0)
         let nfxSession = Session(configuration: configuration)
         self.session = nfxSession
@@ -46,7 +46,6 @@ class ApiManager {
         #endif
     }
 
-    typealias CompletionDataResponse = (AFDataResponse<Any>) -> Void
     @discardableResult
     func apiRequest(
         _ method: HTTPMethod,
@@ -77,51 +76,6 @@ class ApiManager {
 
 // MARK: - Response Handler
 extension DataRequest {
-
-    typealias CompletionDataResponse = (AFDataResponse<Any>) -> Void
-
-    func responseDecodableHandler<T: Decodable>(
-        of type: T.Type,
-        decoder: DataDecoder = JSONDecoder.iso8601(),
-        completion: @escaping (DataResponse<T, AFError>) -> Void
-    ) {
-        responseDecodable(of: type, decoder: decoder) {
-            completion($0)
-        }
-    }
-
-    func responseDecodableHandler<T: Decodable, E: Codable>(
-        of type: T.Type,
-        err errType: E.Type,
-        decoder: DataDecoder = JSONDecoder.iso8601(),
-        completion: @escaping (T?, E?, ApiResponseStatusModel) -> Void
-    ) {
-        responseDecodable(of: type, decoder: decoder) { dataResponse in
-            if let response = dataResponse.response {
-                switch dataResponse.result {
-                case .success(let value):
-                    let response = ApiResponseStatusModel(true, nil, response.statusCode)
-                    completion(value, nil, response)
-                case .failure(let error):
-                    let response = ApiResponseStatusModel(false, error, response.statusCode)
-
-                    var errModel: E?
-                    if let errData = dataResponse.data {
-                        errModel = Utils.dataToCodable(
-                            data: errData,
-                            type: E.self,
-                            decoder: decoder as? JSONDecoder ?? JSONDecoder.iso8601()
-                        )
-                    }
-                    completion(nil, errModel, response)
-                }
-            } else {
-                let response = ApiResponseStatusModel(false, nil, 0)
-                completion(nil, nil, response)
-            }
-        }
-    }
-
     func serializingDecodableHandler<T: Decodable>(
         of type: T.Type,
         decoder: DataDecoder = JSONDecoder.iso8601()
