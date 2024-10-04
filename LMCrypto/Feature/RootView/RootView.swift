@@ -9,14 +9,16 @@ import SwiftUI
 
 struct RootView: View {
     // MARK: - Configure
-    static func view() -> RootView {
-        let rootPresenter = RootPresenter.shared
-        let rootInteractor = RootInteractor.shared
-        rootInteractor.presenter = rootPresenter
+    static func view(
+        presenter: RootPresenter,
+        interactor: RootInteractorProtocol
+    ) -> RootView {
+
+        interactor.presenter = presenter
 
         return RootView(
-            rootPresenter: rootPresenter,
-            rootInteractor: rootInteractor
+            rootPresenter: presenter,
+            rootInteractor: interactor
         )
     }
 
@@ -29,8 +31,8 @@ struct RootView: View {
     @EnvironmentObject var mainRouter: Router
     @EnvironmentObject var theme: ThemeState
 
-    @StateObject private var rootPresenter: RootPresenter
-    @State private var rootInteractor: RootInteractorProtocol
+    @ObservedObject private var rootPresenter: RootPresenter
+    private var rootInteractor: RootInteractorProtocol
 
     @FocusState private var focusedField: TextFieldType?
     @State private var searchText: String = ""
@@ -58,8 +60,8 @@ struct RootView: View {
         rootPresenter: RootPresenter,
         rootInteractor: RootInteractorProtocol
     ) {
-        self._rootPresenter = StateObject(wrappedValue: rootPresenter)
-        self._rootInteractor = State(wrappedValue: rootInteractor)
+        self.rootPresenter = rootPresenter
+        self.rootInteractor = rootInteractor
     }
 
     // MARK: - UI Body
@@ -167,7 +169,7 @@ struct RootView: View {
                     }
                 }
                 .refreshable {
-                    guard focusedField == nil && !rootPresenter.isLoading else { return }
+                    guard focusedField == nil && !rootPresenter.isLoadingList else { return }
                     searchText = ""
                     async let delay: Void? = try? await Task.sleep(seconds: 0.5)
                     async let loadData: Void = rootInteractor.resetData()
@@ -351,5 +353,8 @@ struct RootView: View {
 }
 
 #Preview {
-    RootView.view()
+    RootView.view(
+        presenter: RootPresenter(),
+        interactor: RootInteractor()
+    )
 }

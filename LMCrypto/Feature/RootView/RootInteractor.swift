@@ -8,8 +8,9 @@
 import Foundation
 import Combine
 
-protocol RootInteractorProtocol {
+protocol RootInteractorProtocol: AnyObject {
     var searchText: String { get set }
+    var presenter: RootPresenter? { get set }
 
     func loadAllData()
     func loadMoreList()
@@ -23,17 +24,9 @@ class RootInteractor: RootInteractorProtocol {
     // MARK: - Property
     // data
     @Published var searchText: String = ""
-    private var topCoinIds: [String] = []
     private var totalItem = 0
 
     // loading state
-    private(set) var isLoadingTopList = false {
-        didSet {
-            Task {
-                await presenter?.setLoadingTopList(isLoadingTopList)
-            }
-        }
-    }
     private(set) var isLoadingList = false {
         didSet {
             Task {
@@ -86,7 +79,6 @@ class RootInteractor: RootInteractorProtocol {
 
     func loadAllData() {
         Task {
-            await getTopCoinList()
             await getCoinList(offset: pagination.offset)
         }
     }
@@ -94,29 +86,6 @@ class RootInteractor: RootInteractorProtocol {
     func loadMoreList() {
         Task {
             await getCoinList(search: searchText, offset: pagination.offset)
-        }
-    }
-
-    private func getTopCoinList() async {
-        guard !isLoadingTopList else { return }
-        isLoadingTopList = true
-
-        let data = await coinRepo.getCoinList(
-            searchText: "",
-            offset: 0,
-            limit: 3,
-            orderBy: .marketCap
-        )
-
-        if let list = data.0, data.2.isSuccess {
-            let mappedList = list.coins.map {
-                CoinListItemModel(model: $0, hasInvite: false)
-            }
-            topCoinIds = list.coins.map { $0.uuid }
-            isLoadingTopList = false
-            await presenter?.setTopCoinList(mappedList)
-        } else {
-            isLoadingTopList = false
         }
     }
 
@@ -133,21 +102,32 @@ class RootInteractor: RootInteractorProtocol {
             orderBy: .marketCap
         )
 
-        if let list = data.0, data.2.isSuccess, search == searchText, pagination.offset == offset {
-            let mappedList = list.coins.filter { coin in
-                if !search.isEmpty {
-                    return true
-                } else {
-                    return !topCoinIds.contains(coin.uuid)
+        if var list = data.0?.coins, data.2.isSuccess, search == searchText, pagination.offset == offset {
+
+            var mappedList: [CoinListItemModel] = []
+
+            if offset == 0 {
+                let topList = list[0...2].map {
+                    CoinListItemModel(model: $0, hasInvite: false)
                 }
+                mappedList = list[3...].enumerated().map { [weak self] index, coin in
+                    CoinListItemModel(
+                        model: coin,
+                        hasInvite: self?.checkHasInvite(index: index, total: total) ?? false
+                    )
+                }
+
+                await presenter?.setTopCoinList(topList)
+            } else {
+                mappedList = list.enumerated()
+                    .map { [weak self] index, coin in
+                        CoinListItemModel(
+                            model: coin,
+                            hasInvite: self?.checkHasInvite(index: index, total: total) ?? false
+                        )
+                    }
             }
-            .enumerated()
-            .map { [weak self] index, coin in
-                CoinListItemModel(
-                    model: coin,
-                    hasInvite: self?.checkHasInvite(index: index, total: total) ?? false
-                )
-            }
+
             totalItem += mappedList.count
             totalItem += mappedList.count(where: { $0.hasInvite })
 
@@ -156,7 +136,7 @@ class RootInteractor: RootInteractorProtocol {
             await presenter?.appendCoinList(mappedList, isReplace: pagination.loadedPage == 0)
 
             pagination.loadedPage += 1
-            pagination.hasNext = list.coins.count >= pagination.limit
+            pagination.hasNext = list.count >= pagination.limit
         } else {
             isLoadingList = false
         }
@@ -165,10 +145,9 @@ class RootInteractor: RootInteractorProtocol {
     }
 
     func resetData() async {
-        guard !isLoadingList, !isLoadingTopList else { return }
+        guard !isLoadingList else { return }
         pagination = .init()
         totalItem = 0
-        await getTopCoinList()
         await getCoinList(offset: pagination.offset)
     }
 

@@ -23,6 +23,10 @@ struct LMCryptoApp: App {
     // router
     @StateObject var mainRouter: Router = Router.main
 
+    // root view
+    @StateObject private var rootPresenter = RootPresenter()
+    @State private var rootInteractor: RootInteractorProtocol = RootInteractor()
+
     // other
     @State private var isLaunching = true
 
@@ -43,7 +47,10 @@ struct LMCryptoApp: App {
                     }
             } else {
                 RouterView(router: mainRouter) {
-                    RootView.view()
+                    RootView.view(
+                        presenter: rootPresenter,
+                        interactor: rootInteractor
+                    )
                 }
                 .transition(.opacity.animation(.default))
                 .environmentObject(theme)

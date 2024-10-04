@@ -24,12 +24,7 @@ class RootPresenter: ObservableObject {
 
     // loading state
     @Published private(set) var isShowSkeleton = true
-    @Published private(set) var isLoadingTopList = false
     @Published private(set) var isLoadingList = false
-
-    var isLoading: Bool {
-        isLoadingTopList || isLoadingList
-    }
 
     // error state
     @Published private(set) var isEmptyList = false
@@ -54,16 +49,9 @@ class RootPresenter: ObservableObject {
         }
     }
 
-    func setLoadingTopList(_ isLoading: Bool) {
-        isLoadingTopList = isLoading
-        if isShowSkeleton && !isLoadingTopList && !isLoadingList {
-            isShowSkeleton = false
-        }
-    }
-
     func setLoadingList(_ isLoading: Bool) {
         isLoadingList = isLoading
-        if isShowSkeleton && !isLoadingTopList && !isLoadingList {
+        if isShowSkeleton && !isLoadingList {
             isShowSkeleton = false
         }
     }
