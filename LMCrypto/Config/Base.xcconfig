@@ -10,3 +10,6 @@
 
 // URL Endpoint
 BASE_URL = https:/$()/api.coinranking.com
+
+// Find your key at https://account.coinranking.com/dashboard/api
+API_KEY = xxx // specify your coin ranking api key

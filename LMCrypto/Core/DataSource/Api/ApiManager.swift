@@ -60,12 +60,18 @@ class ApiManager {
     ) -> DataRequest {
         guard let urlComponents = URLComponents(string: endpoint + apiVersion.path + path) else { fatalError() }
 
+        var reqHeader = headers
+
+        if let apiKey = Config.coinRankingApiKey, !apiKey.isEmpty {
+            reqHeader["x-access-token"] = apiKey
+        }
+
         return session.request(
             urlComponents,
             method: method,
             parameters: parameters,
             encoding: encoding,
-            headers: .init(headers),
+            headers: .init(reqHeader),
             interceptor: retryable ? LMCRequestInterceptor() : nil
         ) {
             $0.timeoutInterval = timeout

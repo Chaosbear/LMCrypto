@@ -14,6 +14,7 @@ enum Config {
     // MARK: - Config Value
     static let useMockData = getInfoValue(key: "USE_MOCK_DATA") == "YES"
     static let enableNetFox = getInfoValue(key: "ENABLE_NETFOX") == "YES"
+    static let coinRankingApiKey = getInfoValue(key: "API_KEY")
 
     static let baseUrl = getInfoValue(key: "BASE_URL")!
 
